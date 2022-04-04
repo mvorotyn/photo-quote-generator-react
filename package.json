@@ -1,0 +1,41 @@
+{
+  "name": "quote-generator-react-ts",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "deploy": "vite build && netlify deploy --site photo-quote --dir=dist --prod"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
+    "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
+    "@material-ui/core": "^4.12.3",
+    "@mui/material": "^5.5.3",
+    "browser-image-compression": "^1.0.17",
+    "konva": "^8.3.5",
+    "ky": "^0.30.0",
+    "mobx": "^6.5.0",
+    "mobx-react-lite": "^3.3.0",
+    "mobx-state-tree": "^5.1.3",
+    "mst-log": "^2.0.0",
+    "pexels": "^1.3.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-konva": "^17.0.2-6",
+    "use-image": "^1.0.10"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.23",
+    "@types/react": "^17.0.33",
+    "@types/react-dom": "^17.0.10",
+    "@vitejs/plugin-react": "^1.0.7",
+    "typescript": "^4.5.4",
+    "vite": "^2.9.0",
+    "vite-define-envs-plugin": "^0.1.1",
+    "vite-plugin-environment": "^1.1.0"
+  }
+}
