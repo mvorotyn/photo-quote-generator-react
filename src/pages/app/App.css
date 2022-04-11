@@ -26,7 +26,7 @@
 }
 
 canvas {
-  min-width: 400px !important;
+  min-width: 340px !important;
   position: static !important;
   aspect-ratio: 16 / 9 !important;
   max-width: calc( 100vw - 15rem ) !important;

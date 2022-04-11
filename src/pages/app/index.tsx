@@ -1,6 +1,7 @@
 import {
   AppBar,
   Button,
+  Container,
   createTheme,
   Slider,
   TextField,
@@ -35,6 +36,10 @@ export const themeOptions: ThemeOptions = {
     info: {
       main: "rgba(255,255,255, 1)",
     },
+    text: {
+      primary: "#fff",
+      secondary: 'rgba(231, 220, 226, 0.5)',
+    }
   },
 };
 
@@ -90,90 +95,103 @@ function App() {
       <Header></Header>
 
       <div className="App">
-        <MainStage
-          onCanvasRendered={onCanvasRendered}
-          author={author}
-          blur={imageBlur}
-          quote={quote}
-          imageUrl={imageUrl}
-        ></MainStage>
-        <Stack
-          justifyContent="center"
-          alignItems="center"
-          direction="column"
-          spacing={2}
-        >
-          <a>Blur</a>
-          <Slider
-            defaultValue={0}
-            aria-label="Default"
-            style={{ width: "400px" }}
-            // valueLabelDisplay="on"
-            onChangeCommitted={handleBlurChange}
-          />
-          <TextField
-            id="quote-text"
-            label="Quote"
-            value={quote}
-            onChange={(ev) => {
-              setQuote(ev.target.value);
-            }}
-            multiline
-            rows={4}
-            // defaultValue="insert some quote"
-            variant="standard"
-            style={{ width: "400px" }}
-          />
-          <TextField
-            id="quote-author"
-            label="Author"
-            value={author}
-            onChange={(ev) => {
-              setAuthor(ev.target.value);
-            }}
-            variant="standard"
-            style={{ width: "400px" }}
-          />
-        </Stack>
-        <Stack
-          marginTop="20px"
-          marginBottom="60px"
-          justifyContent="center"
-          alignItems="center"
-          direction="row"
-          spacing={2}
-        >
-          <Button variant="contained" color="primary" onClick={onImageDownload}>
-            Download
-          </Button>
-          <Button
-            variant="contained"
-            href="#contained-buttons"
-            onClick={() => {
-              getRandomWallpaper().then((result) => {
-                // console.log("random wallper", result);
-                if (result) setImageUrl(result);
-              });
-            }}
+        <Container maxWidth="md">
+          <MainStage
+            onCanvasRendered={onCanvasRendered}
+            author={author}
+            blur={imageBlur}
+            quote={quote}
+            imageUrl={imageUrl}
+          ></MainStage>
+          <Stack
+            flex={1}
+            justifyContent="center"
+            alignItems="center"
+            direction="column"
+            spacing={2}
           >
-            Change Background
-          </Button>
-        </Stack>
-        <AppBar
-          // position="static"
-          position="fixed"
-          color="secondary"
-          style={{ top: "auto", bottom: 0 }}
-        >
-          <Typography
-            variant="h6"
-            color="inherit"
-            style={{ textAlign: "center" }}
-            component="div"
+            <Typography color="text.secondary">Blur(%)</Typography>
+            <Slider
+              size="small"
+              defaultValue={0}
+              aria-label="Default"
+          
+              style={{ width: "70%" }}
+              // valueLabelDisplay="on"
+              onChangeCommitted={handleBlurChange}
+            />
+            <TextField
+              // size="medium"
+              style={{ width: "70%" }}
+              id="quote-text"
+              label="Quote"
+              value={quote}
+              onChange={(ev) => {
+                setQuote(ev.target.value);
+              }}
+              multiline
+              rows={4}
+              // defaultValue="insert some quote"
+              variant="standard"
+              // style={{ width: "400px" }}
+            />
+            <TextField
+              // size="medium"
+              style={{ width: "70%" }}
+              id="quote-author"
+              label="Author"
+              value={author}
+              onChange={(ev) => {
+                setAuthor(ev.target.value);
+              }}
+              variant="standard"
+              // style={{ width: "400px" }}
+            />
+          </Stack>
+          <Stack
+            marginTop="20px"
+            marginBottom="60px"
+            justifyContent="center"
+            alignItems="center"
+            direction="row"
+            spacing={2}
           >
-            Mark Vorotyntsev(c) 2022
-          </Typography>
-        </AppBar>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={onImageDownload}
+            >
+              Download
+            </Button>
+            <Button
+              variant="contained"
+              href="#contained-buttons"
+              onClick={() => {
+                getRandomWallpaper().then((result) => {
+                  // console.log("random wallper", result);
+                  if (result) setImageUrl(result);
+                });
+              }}
+            >
+              Change BG
+            </Button>
+          </Stack>
+          <AppBar sx={{backgroundColor: "darkgrey"}}
+            // position="static"
+            position="fixed"
+            color="secondary"
+            style={{ top: "auto", bottom: 0 }}
+          >
+            <Typography
+              variant="h6"
+              color="inherit"
+              style={{ textAlign: "center" }}
+              component="div"
+            >
+              Mark Vorotyntsev(c) 2022
+            </Typography>
+          </AppBar>
+        </Container>
       </div>
     </ThemeProvider>
   );
