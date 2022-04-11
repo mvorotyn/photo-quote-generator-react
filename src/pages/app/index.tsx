@@ -2,13 +2,13 @@ import {
   AppBar,
   Button,
   createTheme,
-  MuiThemeProvider,
   Slider,
   TextField,
   ThemeOptions,
+  ThemeProvider,
   Typography,
   withStyles,
-} from "@material-ui/core";
+} from "@mui/material";
 import { Stack } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
@@ -25,7 +25,7 @@ export const themeOptions: ThemeOptions = {
       default: "#222222",
       paper: "#222222",
     },
-    type: "dark",
+    mode: "dark",
     primary: {
       main: "#802daf",
     },
@@ -40,19 +40,19 @@ export const themeOptions: ThemeOptions = {
 
 const appTheme = createTheme(themeOptions);
 
-const InputField = withStyles({
-  root: {
-    // "& .MuiInputBase-input": {
-    //   color: "white",
-    // },
-    // "& .MuiInputBase-root": {
-    //   color: "white",
-    // },
-    // "& .MuiInput-underline": {
-    //   borderBottom: "1px solid white",
-    // },
-  },
-})(TextField);
+// const TextField = withStyles({
+//   root: {
+//     // "& .MuiInputBase-input": {
+//     //   color: "white",
+//     // },
+//     // "& .MuiInputBase-root": {
+//     //   color: "white",
+//     // },
+//     // "& .MuiInput-underline": {
+//     //   borderBottom: "1px solid white",
+//     // },
+//   },
+// })(TextField);
 
 function App() {
   const store = useStore();
@@ -86,7 +86,7 @@ function App() {
   }
 
   return (
-    <MuiThemeProvider theme={appTheme}>
+    <ThemeProvider theme={appTheme}>
       <Header></Header>
 
       <div className="App">
@@ -111,7 +111,7 @@ function App() {
             // valueLabelDisplay="on"
             onChangeCommitted={handleBlurChange}
           />
-          <InputField
+          <TextField
             id="quote-text"
             label="Quote"
             value={quote}
@@ -124,7 +124,7 @@ function App() {
             variant="standard"
             style={{ width: "400px" }}
           />
-          <InputField
+          <TextField
             id="quote-author"
             label="Author"
             value={author}
@@ -175,7 +175,7 @@ function App() {
           </Typography>
         </AppBar>
       </div>
-    </MuiThemeProvider>
+    </ThemeProvider>
   );
 }
 

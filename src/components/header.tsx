@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 
 export default function Header() {
     return (
