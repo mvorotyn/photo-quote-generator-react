@@ -5,6 +5,8 @@ import App from "./pages/app";
 import { CssBaseline } from "@mui/material";
 import "./index.css";
 
+// import { Buffer as buf} from 'buffer'
+// globalThis.Buffer = buf;
 
 
 if ("serviceWorker" in navigator) {

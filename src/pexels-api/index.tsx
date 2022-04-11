@@ -9,6 +9,7 @@ const query = "Nature";
 export async function getRandomWallpaper() {
   return client.photos
     .search({
+      
       query,
       per_page: 1,
       page: getRandomInt(4000),
@@ -16,6 +17,6 @@ export async function getRandomWallpaper() {
     })
     .then((photos) => {
       let total = photos as PhotosWithTotalResults;
-      return total.photos[0]?.src.large;
+      return total.photos[0]?.src.medium;
     });
 }

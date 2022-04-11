@@ -6,7 +6,8 @@ import { defineConfig } from "vite";
 import viteDefineEnvs from "vite-define-envs-plugin";
 import EnvironmentPlugin from "vite-plugin-environment";
 import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
-// import { copy } from "vite-plugin-copy/";
+import resolve from "rollup-plugin-node-resolve";
+import { dependencies } from "./package.json";
 
 const pwaConfig: Partial<VitePWAOptions> = {
   workbox: {
@@ -40,6 +41,33 @@ const pwaConfig: Partial<VitePWAOptions> = {
   includeManifestIcons: true,
 };
 
+const bigLibs = [
+  { regExp: /^three*/, chunkName: "three" },
+  { regExp: /^@mui*/, chunkName: "@mui_material" },
+];
+
+function getManualChunks(deps: Record<string, string>) {
+  return Object.keys(deps).reduce(
+    (prev, cur) => {
+      let isBigLib = false;
+      for (const l of bigLibs) {
+        if (l.regExp.test(cur)) {
+          isBigLib = true;
+          if (prev[l.chunkName]) {
+            prev[l.chunkName].push(cur);
+          } else {
+            prev[l.chunkName] = [cur];
+          }
+          break;
+        }
+      }
+      if (!isBigLib) prev.vendors.push(cur);
+      return prev;
+    },
+    { vendors: [] } as Record<string, string[]>
+  );
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
   optimizeDeps: {
@@ -52,7 +80,7 @@ export default defineConfig({
       plugins: [
         NodeGlobalsPolyfillPlugin({
           process: true,
-          buffer: true,
+          // buffer: true,
         }),
         NodeModulesPolyfillPlugin(),
       ],
@@ -65,18 +93,19 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
     rollupOptions: {
+      output: {
+        manualChunks: getManualChunks(dependencies),
+      },
       plugins: [
         // Enable rollup polyfills plugin
         // used during production bundling
+        resolve({ preferBuiltins: false, mainFields: ["browser"] }),
         rollupNodePolyFill(),
       ],
     },
   },
 
   plugins: [
-    // copy([
-    //     { src: './netlify.toml', dest: 'dist/' },
-    // ]),
     react(),
     VitePWA(pwaConfig),
     new viteDefineEnvs(["USER", "API_BASE_URL"], "GLOBAL"),
@@ -95,3 +124,6 @@ export default defineConfig({
     }),
   ],
 });
+
+//  "browser-image-compression": "^1.0.17",
+// "ky": "^0.30.0",

@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Box,
   Button,
   Container,
   createTheme,
@@ -10,12 +11,12 @@ import {
   Typography,
   withStyles,
 } from "@mui/material";
+import R3dStage from "../../components/R3fStage";
 import { Stack } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
 import "./App.css";
 import Header from "../../components/header";
-import MainStage from "../../components/main-stage";
 import { getRandomWallpaper } from "../../pexels-api";
 import { useStore } from "../../stores/use-store";
 import { downloadFile, getResizedImageDataURL } from "../../util";
@@ -38,8 +39,8 @@ export const themeOptions: ThemeOptions = {
     },
     text: {
       primary: "#fff",
-      secondary: 'rgba(231, 220, 226, 0.5)',
-    }
+      secondary: "rgba(231, 220, 226, 0.5)",
+    },
   },
 };
 
@@ -72,15 +73,17 @@ function App() {
   // console.log("tweets: ", store.tweets);
   // store.tweets[0]?.toggle();
   const onCanvasRendered = (canv: HTMLCanvasElement) => {
-    console.log(".");
+    // console.log(".");
     canvas = canv;
   };
 
   const onImageDownload = () => {
-    // const dataUrl = canvas.toDataURL("image/png");
+    console.log(canvas);
+    const dataUrl = canvas.toDataURL("image/png");
     // compressAndDownload(dataUrl, "quote.png");
-    const dataUrlResized = getResizedImageDataURL(canvas);
-    downloadFile(dataUrlResized, "quote.png");
+    // const dataUrlResized = getResizedImageDataURL(canvas);
+    downloadFile(dataUrl, "quote.png");
+
   };
 
   function handleBlurChange(event: any, value: number | number[]): void {
@@ -90,19 +93,43 @@ function App() {
     }
   }
 
+
+
   return (
     <ThemeProvider theme={appTheme}>
       <Header></Header>
 
       <div className="App">
         <Container maxWidth="md">
-          <MainStage
+          <Box
+            sx={{
+              padding: "2rem",
+              position: "static",
+              display: "flex",
+              justifyContent: "center",
+              justifyItems: "center",
+              maxWidth: "1280",
+              height: "unset!important",
+              width: "unset!important",
+            }}
+            component="div"
+          >
+            <R3dStage
+              onCanvasRendered={onCanvasRendered}
+              author={author}
+              blur={imageBlur}
+              quote={quote}
+              imageUrl={imageUrl}
+            ></R3dStage>
+          </Box>
+
+          {/* <MainStage
             onCanvasRendered={onCanvasRendered}
             author={author}
             blur={imageBlur}
             quote={quote}
             imageUrl={imageUrl}
-          ></MainStage>
+          ></MainStage> */}
           <Stack
             flex={1}
             justifyContent="center"
@@ -115,20 +142,24 @@ function App() {
               size="small"
               defaultValue={0}
               aria-label="Default"
-          
               style={{ width: "70%" }}
               // valueLabelDisplay="on"
               onChangeCommitted={handleBlurChange}
             />
             <TextField
               // size="medium"
+              
               style={{ width: "70%" }}
               id="quote-text"
               label="Quote"
+              aria-colcount={10}
               value={quote}
               onChange={(ev) => {
-                setQuote(ev.target.value);
+               let text =  ev.target.value.toString()
+             
+                setQuote(text);
               }}
+          
               multiline
               rows={4}
               // defaultValue="insert some quote"
@@ -176,7 +207,8 @@ function App() {
               Change BG
             </Button>
           </Stack>
-          <AppBar sx={{backgroundColor: "darkgrey"}}
+          <AppBar
+            sx={{ backgroundColor: "darkgrey" }}
             // position="static"
             position="fixed"
             color="secondary"
