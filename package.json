@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "start": "vite preview",
-    "deploy": "vite build && cp font.ttf dist/ && netlify deploy --site photo-quote --dir=dist --prod"
+    "deploy": "vite build && netlify deploy --site photo-quote --dir=dist --prod"
   },
   "dependencies": {
     "@compai/font-recursive": "^0.0.2",
@@ -17,7 +17,6 @@
     "@mui/material": "^5.5.3",
     "@react-three/drei": "^9.3.4",
     "@react-three/postprocessing": "^2.3.2",
-   
     "buffer": "^6.0.3",
     "mobx": "^6.5.0",
     "mobx-react-lite": "^3.3.0",

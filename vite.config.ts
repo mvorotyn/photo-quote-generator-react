@@ -7,6 +7,7 @@ import viteDefineEnvs from "vite-define-envs-plugin";
 import EnvironmentPlugin from "vite-plugin-environment";
 import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
 import resolve from "rollup-plugin-node-resolve";
+// @ts-ignore
 import { dependencies } from "./package.json";
 
 const pwaConfig: Partial<VitePWAOptions> = {
@@ -35,7 +36,7 @@ const pwaConfig: Partial<VitePWAOptions> = {
       },
     ],
   },
-  includeAssets: ["favicon.svg", "netlify.toml"],
+  includeAssets: ["favicon.svg"],
   manifest: {},
   registerType: "autoUpdate",
   includeManifestIcons: true,
@@ -125,5 +126,6 @@ export default defineConfig({
   ],
 });
 
+///&& cp font.ttf dist/
 //  "browser-image-compression": "^1.0.17",
 // "ky": "^0.30.0",

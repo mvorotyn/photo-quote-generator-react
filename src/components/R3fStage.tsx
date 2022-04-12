@@ -9,6 +9,7 @@ import {
 import { Ref, Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, ReactThreeFiber, useThree } from "react-three-fiber";
 import { BufferGeometry, Material, Mesh, Vector3 } from "three";
+import fontUrl from './../assets/font.ttf'
 
 // import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
 // import typefaceData from "@compai/font-recursive/data/typefaces/normal-400.json";
@@ -128,7 +129,7 @@ export default function R3dStage(props: {
           url={props.imageUrl}
         />
         <Text
-          font="./font.ttf"
+          font={fontUrl}
           // whiteSpace="overflowWrap"
           castShadow={true}
           textAlign="center"
@@ -143,7 +144,7 @@ export default function R3dStage(props: {
           {textFold(props.quote, maxCharsInRow)}
         </Text>
         <Text
-        font="./font.ttf"
+        font={fontUrl}
           // whiteSpace="overflowWrap"
           castShadow={true}
           textAlign="center"
